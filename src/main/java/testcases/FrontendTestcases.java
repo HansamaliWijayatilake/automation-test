@@ -1,15 +1,15 @@
 package testcases;
 
 import data.TestData;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 import pages.GamingLaptopPage;
 import pages.LandingPage;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class FrontendTestcases {
 
     @BeforeClass
     public void setup (){
-        System.setProperty("webdriver.chrome.driver","Libs/chromedriver/chromedriver");
+        System.setProperty("webdriver.chrome.driver","ChromeDriver/chromedriver");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.get("https://www.lazada.sg/#");
@@ -47,7 +47,30 @@ public class FrontendTestcases {
 
     }
 
+    @Test(dataProvider="DeviceList" ,dataProviderClass=TestData.class, priority = 1)
+    public void testCase02(String device) throws InterruptedException {
+        {
+            LandingPage landingPage = new LandingPage(driver,actions);
+            landingPage.hoverMainCategoryElement();
+            landingPage.hoverCategories();
+            List deviceList = new ArrayList();
+            deviceList.add(device);
+            Assert.assertTrue(landingPage.getDeviceList().containsAll(deviceList));
+        }
+    }
 
+    @Test(dataProvider="childDeviceList" ,dataProviderClass=TestData.class, priority = 2)
+    public void testCase03(String childDevice) throws InterruptedException {
+        {
+            LandingPage landingPage = new LandingPage(driver,actions);
+            landingPage.hoverMainCategoryElement();
+            landingPage.hoverCategories();
+            landingPage.hoverSubCategories();
+            List childDeviceList = new ArrayList();
+            childDeviceList.add(childDevice);
+            Assert.assertTrue(landingPage.getChildDeviceList().containsAll(childDeviceList));
+        }
+    }
 
 
     @AfterTest

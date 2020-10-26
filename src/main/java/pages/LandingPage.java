@@ -15,7 +15,8 @@ public class LandingPage {
     By categoryText = By.xpath(".//span[contains(text(),'Electronic Devices')]");
     By subCategoryText = By.xpath("//li[@data-cate='cate_1_3']/a/span[text()='Laptops']");
     By leafCategoryText = By.xpath("//ul[@data-spm='cate_1_3']/li[2]/a/span[text()='Gaming Laptops']");
-
+    By childDeviceList = By.xpath("//ul[@data-spm='cate_1_3']/li/a/span");
+    By deviceList = By.xpath("//ul[@data-spm='cate_1']/li/a/span");
 
     public LandingPage(WebDriver driver, Actions actions) {
         this.driver = driver;
@@ -39,6 +40,26 @@ public class LandingPage {
 
     public void gotoLeafCategory() {
         driver.findElement(leafCategoryText).click();
+    }
+
+    public List getDeviceList() {
+        List<WebElement> devices = driver.findElements(deviceList);
+        List deviceList = new ArrayList();
+        for (int i = 0; i < devices.size(); i++) {
+            deviceList.add(devices.get(i).getAttribute("innerHTML").replace("&amp; ","& ")) ;
+
+        }
+        return deviceList;
+    }
+
+    public List getChildDeviceList() {
+        List<WebElement> childDevices = driver.findElements(childDeviceList);
+        List deviceList = new ArrayList();
+        for (int i = 0; i < childDevices.size(); i++) {
+            deviceList.add(childDevices.get(i).getAttribute("innerHTML").replace("&amp; ","& ")) ;
+
+        }
+        return deviceList;
     }
 
     public void completeNavigationToLeaf() {

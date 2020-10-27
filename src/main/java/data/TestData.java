@@ -30,4 +30,12 @@ public class TestData {
                 };
 
     }
+
+    @DataProvider(name = "addPost")
+    public Object[][] createPostTestData() {
+
+        return new Object[][] {
+                {"Test Post 1","Test content added from Post call", 1}
+        };
+    }
 }

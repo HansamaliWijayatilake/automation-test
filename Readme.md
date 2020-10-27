@@ -3,5 +3,3 @@ In order to execute these resolve the mvn dependancies and then once the dependa
 
 I have used java along with selenium and chromedriver for front end automation and rest assured for the backend tasks. 
 Simply by executing the testng.xml all the tests will be executed parallelly. To execute the test plan goto the test plan right click and select the run command 
-
-

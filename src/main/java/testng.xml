@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Frontend Automation" thread-count="3" parallel="tests">
+<suite name="Frontend Automation" thread-count="16" parallel="tests">
     <test name="Front end Automation Test">
         <packages>
             <package name="testcases"></package>

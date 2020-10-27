@@ -90,4 +90,13 @@ public class TestData {
                         "Multi-layered client-server", "edPub"}
         };
     }
+
+    @DataProvider(name = "updateUser")
+    public Object[][] updateUserTestData() {
+        return new Object[][] {
+                {2,"Alex Perera","APerera", "aperera@gmail.com","A Street","B Suite","C city","00500","-37.3159",
+                        "81.1496", "0703342299","hildegard.org","Hildegard Asia",
+                        "Multi-layered client-server", "edPub"}
+        };
+    }
 }

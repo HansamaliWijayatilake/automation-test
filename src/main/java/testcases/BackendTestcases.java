@@ -164,8 +164,6 @@ public class BackendTestcases {
          company.put("catchPhrase", compCatch);
          company.put("bs", compBs);
 
-
-
         JSONObject requestParams = new JSONObject();
         requestParams.put("name", name);
         requestParams.put("username", username);
@@ -209,7 +207,64 @@ public class BackendTestcases {
                 .body("isEmpty()", Matchers.is(true)).extract().response();
     }
 
+    @Test(dataProvider = "updateUser", dataProviderClass = TestData.class)
+    public void updateUser(int id,String name, String username, String email, String street,
+                           String suite, String city, String zip,
+                           String lat, String lng, String phone, String website,
+                           String compName, String compCatch, String compBs) {
+        RestAssured.baseURI = "https://jsonplaceholder.typicode.com/";
+
+        Map<String,String> geo = new HashMap<>();
+        geo.put("lat", lat);
+        geo.put("lng", lng);
+
+        Map<String,String> address = new HashMap<>();
+        address.put("street", street);
+        address.put("city", city);
+        address.put("zip", zip);
+        address.put("lat",geo.get(lat) );
+        address.put("lng",geo.get(lng) );
+
+        Map<String,String> company = new HashMap<>();
+        company.put("name", name);
+        company.put("catchPhrase", compCatch);
+        company.put("bs", compBs);
+
+
+
+        JSONObject requestParams = new JSONObject();
+        requestParams.put("name", name);
+        requestParams.put("username", username);
+        requestParams.put("email", email);
+        requestParams.put("address", address);
+        requestParams.put("phone", phone);
+        requestParams.put("website",website);
+        requestParams.put("company",company);
+
+        int responseId = given().
+                body(requestParams.toJSONString()).
+                when().
+                put("/users/" + id).
+                then().assertThat().
+                statusCode(200).and().
+                contentType(ContentType.JSON).
+                        extract().
+                        path("id");
+
+        Assert.assertEquals(responseId, 2);
     }
+
+    @Test(dataProvider = "userId", dataProviderClass = TestData.class)
+    public void timeTakeByGetUser(int userId){
+        RestAssured.baseURI="https://jsonplaceholder.typicode.com/";
+
+        Response response= given().queryParam("id", userId)
+                .get("/users").then().assertThat().statusCode(200).time(lessThan(1000L)).extract().response();
+
+        String jsonString = response.asString();
+        Assert.assertEquals(jsonString.contains(String.valueOf(userId)), true);
+    }
+}
 
 
 

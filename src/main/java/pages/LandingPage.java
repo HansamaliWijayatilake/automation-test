@@ -68,5 +68,4 @@ public class LandingPage {
         this.gotoLeafCategory();
     }
 
-
 }

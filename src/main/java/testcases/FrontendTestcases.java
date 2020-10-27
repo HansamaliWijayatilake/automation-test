@@ -10,7 +10,6 @@ import pages.LandingPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -48,7 +47,7 @@ public class FrontendTestcases {
     }
 
     @Test(dataProvider="DeviceList" ,dataProviderClass=TestData.class, priority = 1)
-    public void testCase02(String device) throws InterruptedException {
+    public void testCase02(String device) {
         {
             LandingPage landingPage = new LandingPage(driver,actions);
             landingPage.hoverMainCategoryElement();
@@ -60,7 +59,7 @@ public class FrontendTestcases {
     }
 
     @Test(dataProvider="childDeviceList" ,dataProviderClass=TestData.class, priority = 2)
-    public void testCase03(String childDevice) throws InterruptedException {
+    public void testCase03(String childDevice)  {
         {
             LandingPage landingPage = new LandingPage(driver,actions);
             landingPage.hoverMainCategoryElement();
@@ -74,7 +73,7 @@ public class FrontendTestcases {
 
 
     @AfterTest
-    public void afterTest() throws Exception{
+    public void afterTest() {
 
         driver.quit();
     }
